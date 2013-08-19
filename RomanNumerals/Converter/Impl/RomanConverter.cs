@@ -40,7 +40,23 @@ namespace Converter.Impl
 
         private string ConvertToRoman(int number)
         {
-            return "I";
+            var roman = string.Empty;
+
+            var values = Enum.GetValues(typeof(RomanNumberMapping));
+
+            for (var i = values.Length - 1; i >= 0; --i)
+            {
+                var value = (int)values.GetValue(i);
+
+                while (number >= value)
+                {
+                    roman += Enum.GetName(typeof(RomanNumberMapping), value);
+
+                    number -= value;
+                }
+            }
+
+            return roman;
         }
 
         #endregion
